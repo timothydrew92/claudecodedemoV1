@@ -15,10 +15,15 @@ const CAT_KEYS = {
   Productivity: 'catProductivity',
 }
 
-export default function HabitCard({ habit, onToggle, onEdit }) {
+export default function HabitCard({ habit, onToggle, onComplete, onEdit }) {
   const t    = useT()
   const done = (habit.dates || []).includes(today())
   const { cur, best } = streaks(habit.dates || [])
+
+  function handleCheck() {
+    if (!done) onComplete?.()
+    onToggle()
+  }
 
   return (
     <div
@@ -28,7 +33,7 @@ export default function HabitCard({ habit, onToggle, onEdit }) {
       {/* Top row */}
       <div className="flex items-start gap-3">
         <button
-          onClick={onToggle}
+          onClick={handleCheck}
           aria-label={done ? 'Mark incomplete' : 'Mark complete'}
           className={`flex-shrink-0 w-[26px] h-[26px] mt-0.5 rounded-full border-2 flex items-center justify-center text-sm transition-all duration-[180ms]
             ${done

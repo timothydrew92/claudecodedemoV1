@@ -2,7 +2,7 @@ import { useT } from '../context/LanguageContext'
 import HabitCard from './HabitCard'
 import EmptyState from './EmptyState'
 
-export default function HabitList({ habits, onToggle, onOpenModal }) {
+export default function HabitList({ habits, onToggle, onComplete, onOpenModal }) {
   const t = useT()
 
   return (
@@ -29,6 +29,7 @@ export default function HabitList({ habits, onToggle, onOpenModal }) {
               key={h.id}
               habit={h}
               onToggle={() => onToggle(h.id)}
+              onComplete={() => onComplete(h.id)}
               onEdit={() => onOpenModal(h.id)}
             />
           ))}
